@@ -1,0 +1,26 @@
+/* Matches the DrvSniff homepage: IBM Plex, near-black, one green accent. */
+[data-md-color-scheme="slate"]{
+  --md-default-bg-color:#0c0e0d;--md-default-fg-color:#eceeec;
+  --md-default-fg-color--light:#9a9e9b;--md-default-fg-color--lighter:#4a4f4c;--md-default-fg-color--lightest:#262a28;
+  --md-primary-fg-color:#0c0e0d;--md-primary-bg-color:#eceeec;
+  --md-accent-fg-color:#2fb673;--md-typeset-color:#eceeec;--md-typeset-a-color:#2fb673;
+  --md-code-bg-color:#131615;--md-code-fg-color:#eceeec;
+  --md-footer-bg-color:#0c0e0d;--md-footer-bg-color--dark:#0c0e0d;
+  --dv-line:#262a28;
+}
+[data-md-color-scheme="default"]{
+  --md-default-bg-color:#f5f6f5;--md-default-fg-color:#121514;
+  --md-default-fg-color--light:#565b58;--md-default-fg-color--lighter:#a7aca9;--md-default-fg-color--lightest:#d8dcd9;
+  --md-primary-fg-color:#f5f6f5;--md-primary-bg-color:#121514;
+  --md-accent-fg-color:#17804d;--md-typeset-color:#121514;--md-typeset-a-color:#17804d;
+  --md-code-bg-color:#ffffff;--md-code-fg-color:#121514;
+  --md-footer-bg-color:#f5f6f5;--md-footer-bg-color--dark:#f5f6f5;
+  --md-footer-fg-color:#121514;--md-footer-fg-color--light:#565b58;--md-footer-fg-color--lighter:#565b58;
+  --dv-line:#d8dcd9;
+}
+.md-header,.md-tabs{box-shadow:none;border-bottom:1px solid var(--dv-line)}
+.md-footer{border-top:1px solid var(--dv-line)}
+.md-typeset h1,.md-typeset h2,.md-typeset h3{font-weight:700;letter-spacing:-.02em;color:var(--md-default-fg-color)}
+.md-typeset h1{letter-spacing:-.03em}
+.md-typeset code,.md-typeset .admonition,.md-typeset details{border-radius:4px}
+.md-typeset table:not([class]){border:1px solid var(--dv-line);border-radius:4px;box-shadow:none}

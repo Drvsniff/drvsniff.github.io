@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Page maker - DrvSniff Wiki</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600;700&display=swap">
+<style>
+:root{--bg:#0c0e0d;--panel:#131615;--line:#262a28;--fg:#eceeec;--mute:#9a9e9b;--g:#2fb673;--on-g:#0c0e0d;--a:#e2a336;
+--f:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--m:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:light){:root{--bg:#f5f6f5;--panel:#fff;--line:#d8dcd9;--fg:#121514;--mute:#565b58;--g:#17804d;--on-g:#fff;--a:#8f5f00;color-scheme:light}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 16px/1.6 var(--f);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header{border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;gap:16px;height:56px;font-size:14px;color:var(--mute)}
+.logo{font-weight:700;font-size:20px;letter-spacing:-.02em;text-decoration:none;color:var(--fg)}
+header a:last-child{margin-left:auto}
+main{display:grid;grid-template-columns:1fr 1fr;gap:40px;padding-top:32px;padding-bottom:48px}
+h1{font-size:28px;line-height:1.15;letter-spacing:-.03em;margin:0 0 6px}
+.sub{color:var(--mute);margin:0 0 24px;font-size:15px}
+label{display:block;font-size:14px;font-weight:600;margin:0 0 6px}
+.hint{font-weight:400;color:var(--mute)}
+.fld{margin-bottom:18px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+input,select,textarea{width:100%;background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:4px;padding:11px 12px;font:400 16px/1.4 var(--f)}
+textarea{font:400 14px/1.6 var(--m);min-height:320px;resize:vertical}
+:focus-visible{outline:2px solid var(--g);outline-offset:1px}
+.chk{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:14px;color:var(--mute)}
+.chk input{width:auto;margin-top:4px}
+details{margin-top:20px;font-size:14px;color:var(--mute)}
+summary{cursor:pointer}
+.out{position:sticky;top:20px;align-self:start;background:var(--panel);border:1px solid var(--line);border-radius:4px}
+.path{font:500 13px/1.4 var(--m);padding:12px 14px;border-bottom:1px solid var(--line);word-break:break-all;color:var(--g)}
+pre{margin:0;padding:14px;font:400 13px/1.6 var(--m);white-space:pre-wrap;word-break:break-word;max-height:380px;overflow:auto}
+#msg{font-size:14px;color:var(--a);padding:0 14px 12px}
+#msg:empty{display:none}
+.acts{display:flex;flex-wrap:wrap;gap:10px;padding:14px;border-top:1px solid var(--line)}
+.btn{font:600 14px/1 var(--f);padding:12px 16px;border-radius:4px;border:1px solid var(--line);background:none;color:var(--fg);cursor:pointer}
+.btn.p{background:var(--g);border-color:var(--g);color:var(--on-g)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+@media(max-width:820px){main{grid-template-columns:1fr;gap:24px}.out{position:static}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="logo" href="../">DrvSniff Wiki</a><span>Page maker</span><a href="../">Back to the wiki</a></div></header>
+<main class="wrap">
+<div>
+  <h1>Write a wiki page</h1>
+  <p class="sub">Fill this in, then open it in GitHub's editor and commit. The wiki rebuilds in about a minute.</p>
+  <div class="row fld">
+    <div><label for="sec">Section</label><select id="sec"><option value="esp32">ESP32</option><option value="linux">Linux</option><option value="opsec">Opsec</option><option value="osint">OSINT</option></select></div>
+    <div><label for="tpl">Template</label><select id="tpl"><option value="guide">How-to guide</option><option value="flash">ESP32 flash guide</option><option value="method">Method write-up</option><option value="blank">Blank</option></select></div>
+  </div>
+  <div class="fld"><label for="ttl">Title</label><input id="ttl" autocomplete="off" placeholder="Flash Marauder on a Cheap Yellow Display"></div>
+  <div class="fld"><label for="dsc">Description <span class="hint">shown in search and link previews</span></label><input id="dsc" autocomplete="off" maxlength="160"></div>
+  <div class="fld"><label for="bod">Page text <span class="hint">Markdown</span></label><textarea id="bod"></textarea></div>
+  <div class="fld"><label for="slg">File name <span class="hint">.md is added for you</span></label><input id="slg" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+  <label class="chk"><input type="checkbox" id="ok"><span>I removed SSIDs, MACs and locations that identify a home, and this covers gear I own or have permission to test.</span></label>
+  <details><summary>Repository</summary>
+    <div class="row" style="margin-top:12px"><div><label for="rep">Repo</label><input id="rep" value="drvsniff/wiki" autocapitalize="off" spellcheck="false"></div><div><label for="brn">Branch</label><input id="brn" value="main" autocapitalize="off" spellcheck="false"></div></div>
+  </details>
+</div>
+<aside class="out" aria-label="File preview">
+  <div class="path" id="path"></div>
+  <pre id="pre"></pre>
+  <div id="msg" role="status"></div>
+  <div class="acts">
+    <button class="btn p" id="gh" type="button">Create on GitHub</button>
+    <button class="btn" id="cp" type="button">Copy</button>
+    <button class="btn" id="dl" type="button">Download</button>
+    <button class="btn" id="cl" type="button">Clear draft</button>
+  </div>
+</aside>
+</main>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)},K='drvsniff-maker',last='',edited=false;
+var T={
+guide:"## What you need\n\n- \n\n## Steps\n\n1. \n2. \n3. \n\n## Check it worked\n\n\n## Troubleshooting\n\n\n## Sources\n\n- ",
+flash:"!!! warning\n    Only flash hardware you own or have written permission to test.\n\n## What you flashed\n\n| | |\n|---|---|\n| Board | |\n| Firmware | |\n| Version | |\n| Flashed with | web serial |\n\n## Steps\n\n1. \n2. \n3. \n\n## Check it worked\n\n\n## Known problems\n\n\n## Credit\n\nLink the firmware repo and its authors.",
+method:"## Goal\n\nWhat question does this answer?\n\n## Public sources used\n\n- \n\n## Method\n\n1. \n2. \n\n## Result\n\n\n## What this shows about your own footprint\n\n",
+blank:""
+};
+function slug(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,60)}
+function q(s){return '"'+s.replace(/\\/g,'\\\\').replace(/"/g,'\\"')+'"'}
+function path(){return 'docs/'+$('sec').value+'/'+(slug($('slg').value)||'untitled')+'.md'}
+function file(){
+  var t=$('ttl').value.trim(),d=$('dsc').value.replace(/\s+/g,' ').trim();
+  return '---\ntitle: '+q(t)+'\n'+(d?'description: '+q(d)+'\n':'')+'---\n\n# '+t+'\n\n'+$('bod').value.replace(/\s+$/,'')+'\n';
+}
+function ghUrl(body){
+  var u='https://github.com/'+$('rep').value.trim()+'/new/'+encodeURIComponent($('brn').value.trim()||'main')+'?filename='+encodeURIComponent(path());
+  return body?u+'&value='+encodeURIComponent(file()):u;
+}
+function say(m){$('msg').textContent=m||''}
+function copy(done){
+  var t=file();
+  function fb(){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove();done&&done()}
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(function(){done&&done()},fb);else fb();
+}
+function save(){try{localStorage.setItem(K,JSON.stringify({s:$('sec').value,t:$('tpl').value,ti:$('ttl').value,d:$('dsc').value,b:$('bod').value,sl:$('slg').value,e:edited,r:$('rep').value,br:$('brn').value}))}catch(e){}}
+function load(){try{var o=JSON.parse(localStorage.getItem(K));if(!o)return false;
+  $('sec').value=o.s;$('tpl').value=o.t;$('ttl').value=o.ti;$('dsc').value=o.d;$('bod').value=o.b;$('slg').value=o.sl;edited=!!o.e;$('rep').value=o.r;$('brn').value=o.br;return true}catch(e){return false}}
+function render(){
+  if(!edited)$('slg').value=slug($('ttl').value);
+  var ok=$('ttl').value.trim()&&$('bod').value.trim()&&slug($('slg').value)&&$('ok').checked;
+  $('path').textContent=path();$('pre').textContent=file();
+  $('gh').disabled=$('cp').disabled=$('dl').disabled=!ok;
+  say(ok?'':'Add a title and page text, then tick the box to enable the buttons.');
+  save();
+}
+['sec','ttl','dsc','bod','slg','ok','rep','brn'].forEach(function(id){$(id).addEventListener('input',render);$(id).addEventListener('change',render)});
+$('slg').addEventListener('input',function(){edited=!!this.value});
+$('tpl').addEventListener('change',function(){
+  var b=$('bod'),n=T[this.value];
+  if(!b.value.trim()||b.value===last||confirm('Replace your text with this template?'))b.value=last=n;
+  render();
+});
+$('gh').onclick=function(){
+  var u=ghUrl(true),long=u.length>7000;
+  if(long)u=ghUrl(false);
+  window.open(u,'_blank','noopener');
+  if(long)copy(function(){say('Too long for a link, so it is copied. Paste it into the editor GitHub opened.')});
+};
+$('cp').onclick=function(){copy(function(){say('Copied.')})};
+$('dl').onclick=function(){
+  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([file()],{type:'text/markdown'}));
+  a.download=slug($('slg').value)+'.md';a.click();setTimeout(function(){URL.revokeObjectURL(a.href)},1000);
+};
+$('cl').onclick=function(){if(confirm('Clear this draft?')){try{localStorage.removeItem(K)}catch(e){}location.reload()}};
+if(!load())$('bod').value=last=T.guide;
+render();
+})();
+</script>
+</body>
+</html>
